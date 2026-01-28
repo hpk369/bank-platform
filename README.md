@@ -1,27 +1,27 @@
-# 🏦 Banking Transaction Processing Platform (Mini Version)
+# Banking Transaction Processing Platform (Mini Version)
 
-## 📋 Project Overview
+## Project Overview
 
-A **production-grade banking transaction processing system** that demonstrates enterprise-level big data capabilities for financial services. This platform processes thousands of daily transactions with real-time fraud detection, batch analytics, and comprehensive system monitoring.
+A banking transaction processing system that demonstrates enterprise-level big data capabilities for financial services. This platform processes thousands of daily transactions with real-time fraud detection, batch analytics, and comprehensive system monitoring.
 
-### 🎯 Built For
+### Built For
 Apps Support roles requiring expertise in Big Data platforms, production system monitoring, financial services applications, and real-time data processing.
 
-## 🚀 Key Features
+## Key Features
 
 - **Transaction Generation**: Realistic banking transaction simulation (10,000+ daily transactions)
 - **Real-Time Fraud Detection**: Multiple pattern detection algorithms
 - **Batch Analytics**: Comprehensive daily reporting
 - **System Monitoring**: Proactive health checks
 
-## 🔧 Quick Start
+## uick Start
 
 ```bash
 cd banking-platform-mini/src
 python3 main.py
 ```
 
-## 📊 What It Does
+## What It Does
 
 1. **Generates** 10,000 realistic banking transactions
 2. **Detects** fraudulent patterns in real-time
@@ -29,7 +29,7 @@ python3 main.py
 4. **Monitors** system health and performance
 5. **Reports** comprehensive metrics and alerts
 
-## 💼 Skills Demonstrated
+## Skills Demonstrated
 
 - Production system monitoring and troubleshooting
 - Real-time data processing
@@ -37,7 +37,7 @@ python3 main.py
 - Batch analytics and reporting
 - Banking domain expertise
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 banking-platform-mini/

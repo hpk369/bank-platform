@@ -47,9 +47,3 @@ banking-platform-mini/
 ├── scripts/       # Shell scripts
 └── docs/          # Documentation
 ```
-
-## 🎯 Interview Ready
-
-This project demonstrates real-world Apps Support capabilities for enterprise banking systems with focus on reliability, monitoring, incident response, and financial services domain expertise.
-
-Built by Harsh | Apps Support Specialist

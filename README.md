@@ -4,9 +4,6 @@
 
 A banking transaction processing system that demonstrates enterprise-level big data capabilities for financial services. This platform processes thousands of daily transactions with real-time fraud detection, batch analytics, and comprehensive system monitoring.
 
-### Built For
-Apps Support roles requiring expertise in Big Data platforms, production system monitoring, financial services applications, and real-time data processing.
-
 ## Key Features
 
 - **Transaction Generation**: Realistic banking transaction simulation (10,000+ daily transactions)
@@ -14,7 +11,7 @@ Apps Support roles requiring expertise in Big Data platforms, production system 
 - **Batch Analytics**: Comprehensive daily reporting
 - **System Monitoring**: Proactive health checks
 
-## uick Start
+## Quick Start
 
 ```bash
 cd banking-platform-mini/src

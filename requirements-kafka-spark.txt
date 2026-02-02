@@ -1,0 +1,15 @@
+# Banking Platform Requirements
+# Core + Kafka + Spark Integration
+
+# Existing dependencies
+psutil>=5.9.0
+
+# NEW: Kafka Integration
+kafka-python>=2.0.2
+
+# NEW: Spark Integration (PySpark)
+pyspark>=3.5.0
+
+# Optional but recommended
+pandas>=2.0.0
+numpy>=1.24.0

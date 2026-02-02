@@ -29,7 +29,7 @@ Distributed processing with Apache Spark
 
 ---
 
-## Architecture Evolution
+## Architecture Changes
 
 ```
 FILE MODE:
@@ -47,7 +47,7 @@ Generator → Kafka → Spark Streaming → Kafka → Analytics
 
 ## Quick Start
 
-### Option 1: File Mode (Simplest)
+### Option 1: File Mode
 ```bash
 cd src/
 python3 main.py
@@ -167,12 +167,6 @@ banking-platform-mini/
 - **System Monitoring** - Health checks and metrics
 - **Production Thinking** - Scalability and fault tolerance
 
-### Resume Bullet Points
-- "Built banking transaction processing platform with modular architecture supporting file-based, Kafka streaming, and Spark distributed processing modes"
-- "Implemented real-time fraud detection using Kafka streams with < 100ms latency, processing 10,000+ transactions per second"
-- "Developed Spark Streaming application for distributed fraud analysis, scaling to millions of transactions with automatic fault tolerance"
-- "Demonstrated 35% memory optimization through sliding window implementation (deque with maxlen)"
-
 ---
 
 ## Configuration
@@ -228,31 +222,6 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ---
 
-## Documentation
-
-- **[KAFKA_SPARK_GUIDE.md](KAFKA_SPARK_GUIDE.md)** - Complete setup and usage guide
-- **[Project_1_Banking_Platform_Explanation.md](docs/Project_1_Banking_Platform_Explanation.md)** - Detailed technical explanation
-- **[src/config.py](src/config.py)** - Configuration reference
-
----
-
-## Interview Talking Points
-
-**"I built a banking platform that demonstrates evolution from file-based to production-ready streaming:"**
-
-1. **Started with modular architecture** - Separate modules for generation, fraud detection, analytics. Clean interfaces between components.
-
-2. **Added Kafka integration** - Replaced file I/O with Kafka producers/consumers. Same business logic, just different I/O layer. This proves modular design works.
-
-3. **Implemented Spark Streaming** - Distributed processing for scale. Handles millions of transactions with fault tolerance. Production-ready architecture.
-
-**Key Achievement:**
-- Same fraud detection rules work across all three modes
-- Demonstrates understanding of: streaming, distributed systems, scalability
-- Shows how modular architecture enables easy integration with enterprise tools
-
----
-
 ## Next Steps
 
 ### For Learning:
@@ -268,27 +237,3 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 - [ ] Implement monitoring dashboards (Grafana)
 - [ ] Set up alerting (PagerDuty, Slack)
 - [ ] Add authentication and authorization
-
----
-
-## License
-
-This is a portfolio/learning project. Feel free to use for educational purposes.
-
----
-
-## Contributing
-
-This is a personal portfolio project, but suggestions are welcome! 
-
----
-
-## Contact
-
-**Built by:** Harsh  
-**Purpose:** Portfolio project demonstrating big data skills for banking/financial services roles  
-**Tech Stack:** Python, Kafka, Spark, Hadoop ecosystem
-
----
-
-** If this helps you, consider starring the repo!**

@@ -1,35 +1,35 @@
-# 🏦 Banking Transaction Processing Platform
+# Banking Transaction Processing Platform
 ## File-Based → Kafka → Spark Streaming Evolution
 
 A complete banking platform demonstrating the evolution from simple file-based processing to production-ready real-time streaming with Kafka and Spark.
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
 This project showcases **three operational modes** that represent the typical evolution of data processing in banking:
 
-### 1️⃣ **File Mode** (Original - Learning)
+### 1️**File Mode** (Original - Learning)
 Simple file-based processing perfect for learning and testing
-- ✅ No external dependencies
-- ✅ Easy to understand
-- ✅ Good for small datasets
+- No external dependencies
+- Easy to understand
+- Good for small datasets
 
-### 2️⃣ **Kafka Mode** (Real-Time Streaming)
+### 2️**Kafka Mode** (Real-Time Streaming)
 Production-ready streaming with Apache Kafka
-- ✅ Real-time data flow
-- ✅ Decoupled microservices
-- ✅ Industry standard
+- Real-time data flow
+- Decoupled microservices
+- Industry standard
 
-### 3️⃣ **Spark Streaming Mode** (Production Scale)
+### 3️**Spark Streaming Mode** (Production Scale)
 Distributed processing with Apache Spark
-- ✅ Scales to millions of transactions
-- ✅ Fault-tolerant
-- ✅ Full production architecture
+- Scales to millions of transactions
+- Fault-tolerant
+- Full production architecture
 
 ---
 
-## 📊 Architecture Evolution
+## Architecture Evolution
 
 ```
 FILE MODE:
@@ -45,7 +45,7 @@ Generator → Kafka → Spark Streaming → Kafka → Analytics
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: File Mode (Simplest)
 ```bash
@@ -73,7 +73,7 @@ python3 fraud_detector_spark.py --stream --console
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Basic (File Mode Only)
 ```bash
@@ -95,7 +95,7 @@ brew services start kafka
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 banking-platform-mini/
@@ -120,32 +120,32 @@ banking-platform-mini/
 
 ---
 
-## 💡 Features
+## Features
 
 ### Core Features (All Modes)
-- ✅ Realistic transaction generation (10K+ transactions)
-- ✅ Multi-pattern fraud detection (high amount, velocity, location)
-- ✅ Real-time analytics and reporting
-- ✅ System health monitoring
-- ✅ Comprehensive documentation
+- Realistic transaction generation (10K+ transactions)
+- Multi-pattern fraud detection (high amount, velocity, location)
+- Real-time analytics and reporting
+- System health monitoring
+- Comprehensive documentation
 
 ### Kafka Mode Features
-- ✅ Real-time streaming architecture
-- ✅ Producer/consumer pattern
-- ✅ Topic-based data flow
-- ✅ Automatic retry and error handling
-- ✅ Graceful fallback to file mode
+- Real-time streaming architecture
+- Producer/consumer pattern
+- Topic-based data flow
+- Automatic retry and error handling
+- Graceful fallback to file mode
 
 ### Spark Mode Features
-- ✅ Distributed processing across cluster
-- ✅ Windowed aggregations (velocity detection)
-- ✅ Batch and streaming analytics
-- ✅ Fault tolerance and checkpointing
-- ✅ Scalable to millions of transactions
+- Distributed processing across cluster
+- Windowed aggregations (velocity detection)
+- Batch and streaming analytics
+- Fault tolerance and checkpointing
+- Scalable to millions of transactions
 
 ---
 
-## 📈 Performance Comparison
+## Performance Comparison
 
 | Metric | File Mode | Kafka Mode | Spark Mode |
 |--------|-----------|------------|------------|
@@ -153,19 +153,19 @@ banking-platform-mini/
 | **Latency** | Batch only | < 100ms | < 5s |
 | **Max Volume** | 10K | 100K | Millions |
 | **Scalability** | Single machine | Horizontal | Distributed cluster |
-| **Production Ready** | ❌ | ⚠️  Partial | ✅ Yes |
+| **Production Ready** | No | Partial | Yes |
 
 ---
 
-## 🎓 Learning Outcomes
+## Learning Outcomes
 
 ### Technical Skills Demonstrated
-- ✅ **Modular Architecture** - Clean separation of concerns
-- ✅ **Stream Processing** - Real-time data pipelines
-- ✅ **Distributed Systems** - Kafka + Spark integration
-- ✅ **Fraud Detection** - Multiple detection algorithms
-- ✅ **System Monitoring** - Health checks and metrics
-- ✅ **Production Thinking** - Scalability and fault tolerance
+- **Modular Architecture** - Clean separation of concerns
+- **Stream Processing** - Real-time data pipelines
+- **Distributed Systems** - Kafka + Spark integration
+- **Fraud Detection** - Multiple detection algorithms
+- **System Monitoring** - Health checks and metrics
+- **Production Thinking** - Scalability and fault tolerance
 
 ### Resume Bullet Points
 - "Built banking transaction processing platform with modular architecture supporting file-based, Kafka streaming, and Spark distributed processing modes"
@@ -175,7 +175,7 @@ banking-platform-mini/
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 Edit `src/config.py` to customize:
 
@@ -205,7 +205,7 @@ APP_CONFIG = {
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Run Unit Tests
 ```bash
@@ -228,7 +228,7 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[KAFKA_SPARK_GUIDE.md](KAFKA_SPARK_GUIDE.md)** - Complete setup and usage guide
 - **[Project_1_Banking_Platform_Explanation.md](docs/Project_1_Banking_Platform_Explanation.md)** - Detailed technical explanation
@@ -236,7 +236,7 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ---
 
-## 🎤 Interview Talking Points
+## Interview Talking Points
 
 **"I built a banking platform that demonstrates evolution from file-based to production-ready streaming:"**
 
@@ -253,7 +253,7 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 ### For Learning:
 - [ ] Experiment with different fraud detection rules
@@ -271,19 +271,19 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ---
 
-## 📝 License
+## License
 
 This is a portfolio/learning project. Feel free to use for educational purposes.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal portfolio project, but suggestions are welcome! 
 
 ---
 
-## 📧 Contact
+## Contact
 
 **Built by:** Harsh  
 **Purpose:** Portfolio project demonstrating big data skills for banking/financial services roles  
@@ -291,4 +291,4 @@ This is a personal portfolio project, but suggestions are welcome!
 
 ---
 
-**⭐ If this helps you, consider starring the repo!**
+** If this helps you, consider starring the repo!**

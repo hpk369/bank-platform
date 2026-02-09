@@ -224,14 +224,7 @@ python3 src/fraud_detector_spark.py --batch data/transactions.json
 
 ## Next Steps
 
-### For Learning:
-- [ ] Experiment with different fraud detection rules
-- [ ] Add more streaming windows (hourly, daily aggregations)
-- [ ] Implement exactly-once semantics
-- [ ] Add Hive for SQL queries
-- [ ] Create dashboard with real-time metrics
-
-### For Production:
+### Next Steps:
 - [ ] Deploy on Hadoop cluster (HDFS + YARN)
 - [ ] Add Oozie for workflow scheduling
 - [ ] Implement monitoring dashboards (Grafana)

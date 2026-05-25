@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Runtime data — generated at demo startup, not committed
+data/stream_input/
+data/spark_output/
+data/*.json
+
+# Spark
+/tmp/spark-checkpoints/
+derby.log
+metastore_db/
+
+# OS
+.DS_Store
+Thumbs.db

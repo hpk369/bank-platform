@@ -1,232 +1,254 @@
 # Banking Transaction Processing Platform
-## File-Based → Kafka → Spark Streaming Evolution
 
-A complete banking platform demonstrating the evolution from simple file-based processing to production-ready real-time streaming with Kafka and Spark.
+> **Real-time fraud detection pipeline demonstrating the evolution from batch file processing to distributed Spark Streaming — built to production-grade architecture standards.**
 
----
-
-## Project Overview
-
-This project showcases **three operational modes** that represent the typical evolution of data processing in banking:
-
-### 1️**File Mode** (Original - Learning)
-Simple file-based processing perfect for learning and testing
-- No external dependencies
-- Easy to understand
-- Good for small datasets
-
-### 2️**Kafka Mode** (Real-Time Streaming)
-Production-ready streaming with Apache Kafka
-- Real-time data flow
-- Decoupled microservices
-- Industry standard
-
-### 3️**Spark Streaming Mode** (Production Scale)
-Distributed processing with Apache Spark
-- Scales to millions of transactions
-- Fault-tolerant
-- Full production architecture
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-%E2%86%92%20Open%20Dashboard-blue?style=for-the-badge)](https://hpk369.github.io/bank-platform/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-231F20?style=flat-square&logo=apachekafka)](https://kafka.apache.org)
+[![Apache Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=flat-square&logo=apachespark&logoColor=white)](https://spark.apache.org)
 
 ---
 
-## Architecture Changes
+## 🚀 Live Demo
 
-```
-FILE MODE:
-Generator → JSON → Fraud Detector → JSON → Analytics
+**[→ https://hpk369.github.io/bank-platform/](https://hpk369.github.io/bank-platform/)**
 
-KAFKA MODE:
-Generator → Kafka → Fraud Detector → Kafka → Analytics
-
-SPARK MODE:
-Generator → Kafka → Spark Streaming → Kafka → Analytics
-                    (Distributed across cluster)
-```
+Streams 200,000 synthetic banking transactions through real-time fraud detection in the browser — no setup required. Runs the full pipeline locally with FastAPI + WebSocket when the backend is available, or falls back to a built-in JavaScript simulator.
 
 ---
 
-## Quick Start
+## Overview
 
-### Option 1: File Mode
-```bash
-cd src/
-python3 main.py
+This project models the **three-stage data engineering evolution** commonly seen in production banking systems:
+
+| Stage | Technology | Throughput | Use Case |
+|-------|-----------|------------|----------|
+| **1. File Mode** | Python + JSON | ~1,000 txn/s | Prototyping & learning |
+| **2. Kafka Mode** | Apache Kafka | ~10,000 txn/s | Microservices & real-time |
+| **3. Spark Streaming** | Spark + Kafka | 33,000+ txn/s | Distributed production scale |
+
+The same fraud detection logic runs across all three modes, making the architectural trade-offs concrete and measurable.
+
+---
+
+## Architecture
+
 ```
+┌─────────────────────────────────────────────────────────────────┐
+│  FILE MODE (Baseline)                                           │
+│  Transaction Generator → JSON File → Fraud Detector → Report   │
+└─────────────────────────────────────────────────────────────────┘
 
-### Option 2: Kafka Mode
-```bash
-# Terminal 1: Generate transactions
-python3 transaction_generator_kafka.py --kafka --stream --count 1000
+┌─────────────────────────────────────────────────────────────────┐
+│  KAFKA MODE (Real-Time)                                         │
+│  Generator ──► [banking-transactions] ──► Fraud Detector        │
+│                      Kafka Topic              │                 │
+│                                          [fraud-alerts]         │
+│                                          Kafka Topic            │
+└─────────────────────────────────────────────────────────────────┘
 
-# Terminal 2: Detect fraud
-python3 fraud_detector_kafka.py --kafka --max 1000
-```
-
-### Option 3: Spark Mode
-```bash
-# Batch analysis
-python3 fraud_detector_spark.py --batch ../data/transactions.json
-
-# Streaming analysis (requires Kafka)
-python3 fraud_detector_spark.py --stream --console
+┌─────────────────────────────────────────────────────────────────┐
+│  SPARK STREAMING MODE (Production)                              │
+│  Generator ──► Kafka ──► Spark Structured Streaming             │
+│                              │  (distributed across cluster)    │
+│                         ┌────┴────┐                             │
+│                    [fraud-alerts] [processed-transactions]      │
+│                         Kafka Topics → Analytics                │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Installation
+## Tech Stack
 
-### Basic (File Mode Only)
-```bash
-pip install -r requirements.txt
-```
+| Layer | Technology |
+|-------|-----------|
+| **Stream Processing** | Apache Spark Structured Streaming (PySpark) |
+| **Message Broker** | Apache Kafka (Producer/Consumer) |
+| **API Server** | FastAPI + WebSocket (asyncio) |
+| **Dataset** | Synthetic PaySim-style — 200K transactions, 11 MB |
+| **Dashboard** | Vanilla JS + Chart.js (WebSocket / browser simulator) |
+| **CI/CD** | GitHub Actions → GitHub Pages |
+| **Language** | Python 3.10+ |
 
-### Full (Kafka + Spark)
-```bash
-# Install dependencies
-pip install -r requirements-kafka-spark.txt
+---
 
-# Install Kafka (macOS)
-brew install kafka
-brew services start zookeeper
-brew services start kafka
+## Fraud Detection Rules
 
-# Spark is included with pyspark
-```
+Four rules run on every transaction, identical across all three pipeline modes:
+
+| Rule | Logic | Severity |
+|------|-------|----------|
+| `HIGH_AMOUNT` | Any transaction > $200,000 | High |
+| `BALANCE_DRAIN` | TRANSFER/CASH_OUT leaves origin balance at $0 | Critical |
+| `TRANSFER_SPIKE` | TRANSFER with amount > $150,000 | High |
+| `DATASET_FRAUD` | Labelled fraud in source dataset | Critical |
 
 ---
 
 ## Project Structure
 
 ```
-banking-platform-mini/
+bank-platform/
 ├── src/
-│   ├── transaction_generator.py          # Original file-based
-│   ├── transaction_generator_kafka.py    # Kafka-enabled
-│   ├── fraud_detector.py                 # Original file-based
-│   ├── fraud_detector_kafka.py           # Kafka consumer/producer
-│   ├── fraud_detector_spark.py           # Spark Streaming
-│   ├── analytics.py                      # Batch analytics
-│   ├── monitor.py                        # System monitoring
-│   ├── main.py                           # Original pipeline
-│   └── config.py                         # Configuration
-├── data/                                 # Generated data files
+│   ├── api_server.py               # FastAPI + WebSocket streaming server
+│   ├── demo_streamer.py            # Replays dataset through fraud rules (80 rows/s)
+│   ├── fraud_detector_spark.py     # PySpark Structured Streaming job
+│   ├── fraud_detector_kafka.py     # Kafka consumer/producer fraud detector
+│   ├── fraud_detector.py           # File-mode fraud detector (baseline)
+│   ├── transaction_generator.py    # File-mode transaction generator
+│   ├── transaction_generator_kafka.py  # Kafka-enabled generator
+│   ├── analytics.py                # Batch analytics engine
+│   ├── monitor.py                  # System health monitoring
+│   ├── main.py                     # File-mode pipeline entry point
+│   └── config.py                   # Kafka, Spark, and app configuration
+├── frontend/
+│   ├── index.html                  # Dashboard layout
+│   ├── app.js                      # WebSocket client + browser simulator
+│   └── style.css                   # Dark theme dashboard styles
+├── data/
+│   └── transactions_demo.csv.gz    # 200K synthetic transactions (11 MB)
 ├── scripts/
-│   └── demo.sh                           # Demo script
-├── docs/                                 # Documentation
-├── KAFKA_SPARK_GUIDE.md                  # Complete setup guide
-├── requirements.txt                      # Basic dependencies
-└── requirements-kafka-spark.txt          # Full dependencies
+│   ├── start_demo.sh               # One-command demo startup
+│   ├── generate_dataset.py         # Regenerate dataset at any scale
+│   ├── run_pipeline.sh             # Full pipeline runner
+│   └── health_check.sh             # Service health checks
+├── docs/
+│   ├── THREE_MODES_COMPARISON.md
+│   └── RESUME_SUMMARY.md
+├── .github/workflows/
+│   └── pages.yml                   # Auto-deploy dashboard to GitHub Pages
+├── KAFKA_SPARK_GUIDE.md            # Full Kafka + Spark setup guide
+├── requirements.txt                # File-mode dependencies
+├── requirements-kafka-spark.txt    # Kafka + Spark dependencies
+└── requirements-demo.txt           # Demo server dependencies
 ```
 
 ---
 
-## Features
+## Quick Start
 
-### Core Features (All Modes)
-- Realistic transaction generation (10K+ transactions)
-- Multi-pattern fraud detection (high amount, velocity, location)
-- Real-time analytics and reporting
-- System health monitoring
-- Comprehensive documentation
+### Option 1 — Live Demo (no setup)
+Open **[https://hpk369.github.io/bank-platform/](https://hpk369.github.io/bank-platform/)** in any browser.
 
-### Kafka Mode Features
-- Real-time streaming architecture
-- Producer/consumer pattern
-- Topic-based data flow
-- Automatic retry and error handling
-- Graceful fallback to file mode
+### Option 2 — Run Locally (full backend)
 
-### Spark Mode Features
-- Distributed processing across cluster
-- Windowed aggregations (velocity detection)
-- Batch and streaming analytics
-- Fault tolerance and checkpointing
-- Scalable to millions of transactions
+```bash
+# Clone and start
+git clone https://github.com/hpk369/bank-platform.git
+cd bank-platform
+bash scripts/start_demo.sh
+# Open http://localhost:8000
+```
+
+The startup script installs dependencies and generates the dataset automatically on first run.
+
+### Option 3 — Kafka Mode
+
+```bash
+pip install -r requirements-kafka-spark.txt
+
+# Terminal 1 — generate a stream of transactions
+python3 src/transaction_generator_kafka.py --kafka --stream --count 1000
+
+# Terminal 2 — run fraud detection
+python3 src/fraud_detector_kafka.py --kafka --max 1000
+```
+
+### Option 4 — Spark Structured Streaming
+
+```bash
+pip install -r requirements-kafka-spark.txt
+
+# Stream from Kafka, output to console
+python3 src/fraud_detector_spark.py --stream --console
+
+# Or run batch analysis on a file
+python3 src/fraud_detector_spark.py --batch data/transactions_demo.csv.gz
+```
 
 ---
 
-## Performance Comparison
+## Dashboard Features
 
-| Metric | File Mode | Kafka Mode | Spark Mode |
-|--------|-----------|------------|------------|
-| **Transactions/sec** | 1,000 | 10,000 | 33,000+ |
-| **Latency** | Batch only | < 100ms | < 5s |
-| **Max Volume** | 10K | 100K | Millions |
-| **Scalability** | Single machine | Horizontal | Distributed cluster |
-| **Production Ready** | No | Partial | Yes |
+The live dashboard visualises the streaming pipeline in real time:
 
----
-
-## Learning Outcomes
-
-### Technical Skills Demonstrated
-- **Modular Architecture** - Clean separation of concerns
-- **Stream Processing** - Real-time data pipelines
-- **Distributed Systems** - Kafka + Spark integration
-- **Fraud Detection** - Multiple detection algorithms
-- **System Monitoring** - Health checks and metrics
-- **Production Thinking** - Scalability and fault tolerance
+- **Stat cards** — transactions/sec, total processed, fraud count, fraud rate, batch number, uptime
+- **Live transaction feed** — scrolling table with fraud rows highlighted, capped at 80 visible rows
+- **Fraud alerts panel** — each alert shows amount, triggered rules, account, location, and timestamp
+- **Throughput chart** — line chart of rows/sec over the last 40 batches
+- **Transaction type chart** — doughnut showing PAYMENT / CASH\_OUT / CASH\_IN / DEBIT / TRANSFER split
+- **Fraud rule breakdown** — bar chart of detections per rule
+- **Spark status bar** — batch counter, checkpoint path, source file
 
 ---
 
 ## Configuration
 
-Edit `src/config.py` to customize:
+Edit `src/config.py` to tune the pipeline:
 
 ```python
-# Enable/disable features
-ENABLE_KAFKA = True   # Set to False for file mode only
-ENABLE_SPARK = True   # Set to False if Spark not available
-
-# Kafka settings
-KAFKA_CONFIG = {
-    'bootstrap_servers': ['localhost:9092'],
-    'topics': {
-        'transactions': 'banking-transactions',
-        'fraud_alerts': 'fraud-alerts',
-    }
-}
-
 # Fraud detection thresholds
 APP_CONFIG = {
     'fraud_thresholds': {
-        'high_amount': 5000,       # Alert if amount > $5000
-        'velocity_count': 5,       # Alert if 5+ txns in window
-        'velocity_window': 300,    # 5 minute window
+        'high_amount': 5000,       # Flag transactions above this amount
+        'velocity_count': 5,       # Flag if N+ transactions in window
+        'velocity_window': 300,    # Window size in seconds (5 min)
     }
+}
+
+# Kafka broker and topic names
+KAFKA_CONFIG = {
+    'bootstrap_servers': ['localhost:9092'],
+    'topics': {
+        'transactions':  'banking-transactions',
+        'fraud_alerts':  'fraud-alerts',
+        'processed':     'processed-transactions',
+    }
+}
+
+# Spark cluster settings
+SPARK_CONFIG = {
+    'master': 'local[*]',          # Use 'yarn' for cluster mode
+    'executor_memory': '2g',
+    'driver_memory': '2g',
 }
 ```
 
 ---
 
-## Testing
+## Performance Comparison
 
-### Run Unit Tests
-```bash
-cd src/
-python3 -m pytest tests/
-```
-
-### Run Integration Tests
-```bash
-# Test file mode
-./scripts/demo.sh
-
-# Test Kafka mode (requires Kafka running)
-python3 src/transaction_generator_kafka.py --kafka --count 100
-python3 src/fraud_detector_kafka.py --kafka --max 100
-
-# Test Spark mode
-python3 src/fraud_detector_spark.py --batch data/transactions.json
-```
+| Metric | File Mode | Kafka Mode | Spark Streaming |
+|--------|-----------|------------|-----------------|
+| **Throughput** | ~1,000 txn/s | ~10,000 txn/s | 33,000+ txn/s |
+| **Latency** | Batch only | < 100 ms | < 5 s |
+| **Max Volume** | 10K | 100K | Millions |
+| **Fault Tolerance** | None | Kafka replication | Checkpointing + WAL |
+| **Scalability** | Single machine | Horizontal | Distributed cluster |
+| **Production Ready** | No | Partial | Yes |
 
 ---
 
-## Next Steps
+## Skills Demonstrated
 
-### Next Steps:
+| Area | Detail |
+|------|--------|
+| **Distributed Systems** | Kafka producer/consumer patterns; Spark cluster mode |
+| **Stream Processing** | Spark Structured Streaming; windowed aggregations; watermarking |
+| **API Design** | FastAPI async server; WebSocket broadcast to multiple clients |
+| **Data Engineering** | Schema design; PaySim-style synthetic data generation |
+| **Frontend** | Real-time Chart.js dashboard; WebSocket client with fallback |
+| **DevOps** | GitHub Actions CI/CD; automated GitHub Pages deployment |
+| **Software Design** | Single codebase, three swappable processing modes |
+
+---
+
+## Roadmap
+
 - [ ] Deploy on Hadoop cluster (HDFS + YARN)
 - [ ] Add Oozie for workflow scheduling
-- [ ] Implement monitoring dashboards (Grafana)
-- [ ] Set up alerting (PagerDuty, Slack)
-- [ ] Add authentication and authorization
+- [ ] Grafana + Prometheus monitoring dashboards
+- [ ] PagerDuty / Slack alerting integration
+- [ ] Authentication and role-based access control
+- [ ] Kubernetes deployment manifests

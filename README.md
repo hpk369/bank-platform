@@ -242,13 +242,3 @@ SPARK_CONFIG = {
 | **DevOps** | GitHub Actions CI/CD; automated GitHub Pages deployment |
 | **Software Design** | Single codebase, three swappable processing modes |
 
----
-
-## Roadmap
-
-- [ ] Deploy on Hadoop cluster (HDFS + YARN)
-- [ ] Add Oozie for workflow scheduling
-- [ ] Grafana + Prometheus monitoring dashboards
-- [ ] PagerDuty / Slack alerting integration
-- [ ] Authentication and role-based access control
-- [ ] Kubernetes deployment manifests

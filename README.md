@@ -9,7 +9,7 @@
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
 **[→ https://hpk369.github.io/bank-platform/](https://hpk369.github.io/bank-platform/)**
 
